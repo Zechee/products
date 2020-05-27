@@ -1,15 +1,28 @@
+import os
+
 products = []
+if os.path.isfile('products.csv'):
+	print('Find files!')
+	with open('products.csv', 'r', encoding = 'utf-8') as f:
+		for line in f:
+			if "商品,价格" in line:
+				continue
+			name, price = line.strip().split(',')
+			products.append([name, price])
+		print(products)
+else:
+	print('Cannot find files!')
 
 while True:
 	name = input('Please enter the product\'s name: ')
 	if name == 'q': #quit
 		break
 	price = input('Please enter the product\'s price: ')
-	p = []
-	p.append(name)
-	p.append(price)
+	# p = []
+	# p.append(name)
+	# p.append(price)
 
-	products.append(p)
+	products.append([name, price])
 
 print(products)
 
