@@ -1,19 +1,15 @@
 import os
+
 # read files
 def read_file(file_name):
 	products = []
-	if os.path.isfile(file_name):
-		print('Find files!')
-		with open(file_name, 'r', encoding = 'utf-8') as f:
-			for line in f:
-				if "商品,价格" in line:
-					continue
-				name, price = line.strip().split(',')
-				products.append([name, price])
-			print(products)
-	else:
-		print('Cannot find files!')
-		return products
+	with open(file_name, 'r', encoding = 'utf-8') as f:
+		for line in f:
+			if "商品,价格" in line:
+				continue
+			name, price = line.strip().split(',')
+			products.append([name, price])
+	return products
 
 # input information
 def user_input(products):
@@ -38,7 +34,17 @@ def write_file(file_name, products):
 		for p in products:
 			f.write(p[0] + ',' + p[1] + '\n')
 
-products = read_file('products.csv')
-products = user_input(products)
-print_products(products)
-write_file('products.csv', products)
+def main():
+	file_name = 'products.csv'
+	if os.path.isfile(file_name):
+		print('Find files!')
+		products = read_file(file_name)	
+		print(products)	
+	else:
+		print('Cannot find files!')
+	
+	products = user_input(products)
+	print_products(products)
+	write_file(file_name, products)
+
+main()
